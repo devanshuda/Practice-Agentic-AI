@@ -1,5 +1,49 @@
 # Ignore .git directory
 .git/
 
-# Ignore pycache__ directories in all subdirectories
+# Python
 **/__pycache__/**
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Environment Variables
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Python Packaging
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Terraform (future lessons)
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+terraform.tfvars.json
+
+# Local Vector Databases (future)
+chroma/
+qdrant_storage/
+
+# Ollama generated files (if any local experiments)
+models/
