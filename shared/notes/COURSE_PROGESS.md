@@ -11,10 +11,10 @@
 - [x] Lesson 7 - Agent Decision Making
 - [x] Lesson 8 - Ollama Integration
 - [x] Lesson 9 - Manual Tool Calling
+- [x] Lesson 10 - Multi-Step Agent Workflows
 
 ## Upcoming
 
-- [ ] Lesson 10 - Multi-Step Agent Workflows
 - [ ] Lesson 11 - Agent State Management
 - [ ] Lesson 12 - Agent Memory
 - [ ] Lesson 13 - Building a RAG Agent
