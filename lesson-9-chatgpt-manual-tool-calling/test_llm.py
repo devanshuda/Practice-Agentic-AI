@@ -5,7 +5,7 @@ response = chat(
     messages=[
         {
             "role": "user",
-            "content": "Explain Terraform in one paragraph."
+            "content": "What is Terraform?"
         }
     ]
 )
