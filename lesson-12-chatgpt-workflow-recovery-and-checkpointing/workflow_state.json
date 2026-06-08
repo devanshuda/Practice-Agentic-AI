@@ -1,0 +1,34 @@
+{
+    "workflow": {
+        "status": "completed",
+        "current_step": null
+    },
+    "resources": [
+        "vnet-prod",
+        "storage-prod",
+        "keyvault-prod"
+    ],
+    "terraform": {
+        "generated": true,
+        "resource_count": 3
+    },
+    "pull_request": {
+        "pr_number": 123,
+        "status": "created"
+    },
+    "errors": [],
+    "execution_history": [
+        {
+            "step": "discover_resources",
+            "status": "success"
+        },
+        {
+            "step": "generate_terraform",
+            "status": "success"
+        },
+        {
+            "step": "create_pull_request",
+            "status": "success"
+        }
+    ]
+}
