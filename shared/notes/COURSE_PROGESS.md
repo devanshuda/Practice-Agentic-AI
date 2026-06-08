@@ -12,10 +12,10 @@
 - [x] Lesson 8 - Ollama Integration
 - [x] Lesson 9 - Manual Tool Calling
 - [x] Lesson 10 - Multi-Step Agent Workflows
+- [x] Lesson 11 - Agent State Management
 
 ## Upcoming
 
-- [ ] Lesson 11 - Agent State Management
 - [ ] Lesson 12 - Agent Memory
 - [ ] Lesson 13 - Building a RAG Agent
 - [ ] Lesson 14 - Vector Databases
