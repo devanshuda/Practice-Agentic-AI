@@ -13,13 +13,14 @@
 - [x] Lesson 9 - Manual Tool Calling
 - [x] Lesson 10 - Multi-Step Agent Workflows
 - [x] Lesson 11 - Agent State Management
+- [x] Lesson 12 - Workflow Recovery and Checkpointing
 
 ## Upcoming
 
-- [ ] Lesson 12 - Agent Memory
-- [ ] Lesson 13 - Building a RAG Agent
-- [ ] Lesson 14 - Vector Databases
-- [ ] Lesson 15 - Terraform Import Agent (mini-project)
-- [ ] Lesson 16 - Multi-Agent Systems
-- [ ] Lesson 17 - LangGraph
-- [ ] Lesson 18 - Enterprise Agent Architecture
+- [ ] Lesson 13 - Agent Memory
+- [ ] Lesson 14 - Building a RAG Agent
+- [ ] Lesson 15 - Vector Databases
+- [ ] Lesson 16 - Terraform Import Agent (mini-project)
+- [ ] Lesson 17 - Multi-Agent Systems
+- [ ] Lesson 18 - LangGraph
+- [ ] Lesson 19 - Enterprise Agent Architecture
