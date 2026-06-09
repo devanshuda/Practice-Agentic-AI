@@ -16,11 +16,18 @@
         "pr_number": 123,
         "status": "created"
     },
-    "errors": [],
+    "errors": [
+        "Azure API timeout"
+    ],
     "execution_history": [
         {
             "step": "discover_resources",
             "status": "success"
+        },
+        {
+            "step": "generate_terraform",
+            "status": "failed",
+            "error": "Azure API timeout"
         },
         {
             "step": "generate_terraform",

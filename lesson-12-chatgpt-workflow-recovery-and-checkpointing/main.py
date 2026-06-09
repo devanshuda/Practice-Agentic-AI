@@ -4,38 +4,126 @@ from planner import (
 )
 
 from executor import (
-    execute_plan
+    execute_plan,
+    get_remaining_steps
 )
 
-
-goal = input(
-    "Enter goal: "
+from state_manager import (
+    load_state,
+    delete_state
 )
 
-plan_text = create_plan(goal)
+state = load_state()
 
-print("\nPLAN:")
-print(plan_text)
-
-print("\nRAW PLAN:")
-print(plan_text)
-
-steps = parse_plan(plan_text)
-
-print("\nParsed Steps:")
-print(steps)
-
-if not steps:
+if (
+    state is not None
+    and
+    state["workflow"]["status"]
+    == "failed"
+):
 
     print(
-        "\nNo valid steps found in plan."
+        "\nRecovery checkpoint found."
     )
+
+    choice = input(
+        "Resume workflow? (Y/N): "
+    )
+
+    if choice.lower() == "y":
+
+        goal = input(
+            "\nEnter original goal: "
+        )
+
+        plan_text = create_plan(
+            goal
+        )
+
+        steps = parse_plan(
+            plan_text
+        )
+
+        remaining_steps = (
+            get_remaining_steps(
+                steps,
+                state[
+                    "execution_history"
+                ]
+            )
+        )
+
+        print(
+            "\nRemaining Steps:"
+        )
+
+        print(
+            remaining_steps
+        )
+
+        final_state = (
+            execute_plan(
+                remaining_steps,
+                state
+            )
+        )
+
+        print(
+            "\nRecovered State:"
+        )
+
+        print(
+            final_state
+        )
+
+    else:
+
+        delete_state()
+
+        print(
+            "\nOld state deleted."
+        )
 
 else:
 
-    final_state = execute_plan(
-        steps
+    goal = input(
+        "Enter goal: "
     )
 
-    print("\nFinal State:")
-    print(final_state)
+    plan_text = create_plan(
+        goal
+    )
+
+    print("\nPLAN:")
+
+    print(plan_text)
+
+    print(
+        "\nRAW PLAN:"
+    )
+
+    print(plan_text)
+
+    steps = parse_plan(
+        plan_text
+    )
+
+    print(
+        "\nParsed Steps:"
+    )
+
+    print(steps)
+
+    final_state = (
+        execute_plan(
+            steps
+        )
+    )
+
+    print(
+        "\nFinal State:"
+    )
+
+    print(
+        final_state
+    )

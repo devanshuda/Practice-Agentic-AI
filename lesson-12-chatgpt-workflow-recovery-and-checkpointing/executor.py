@@ -7,9 +7,10 @@ from state_manager import (
 from tool_registry import TOOLS
 
 
-def execute_plan(steps):
+def execute_plan(steps, state=None):
 
-    state = create_state()
+    if state is None:
+        state = create_state()
 
     state["workflow"]["status"] = "running"
 
@@ -17,46 +18,78 @@ def execute_plan(steps):
 
     for step in steps:
 
-        print(f"\nExecuting: {step}")
+        try:
 
-        state["workflow"]["current_step"] = step
+            print(f"\nExecuting: {step}")
 
-        if step == "discover_resources":
+            state["workflow"]["current_step"] = step
 
-            result = TOOLS[step]()
+            if step == "discover_resources":
 
-            state["resources"] = result
+                result = TOOLS[step]()
 
-        elif step == "generate_terraform":
+                state["resources"] = result
 
-            result = TOOLS[step](
-                state["resources"]
+            elif step == "generate_terraform":
+
+                result = TOOLS[step](
+                    state["resources"]
+                )
+
+                state["terraform"] = result
+
+            elif step == "create_pull_request":
+
+                result = TOOLS[step]()
+
+                state["pull_request"] = result
+
+            print(result)
+
+            state["execution_history"].append(
+                {
+                    "step": step,
+                    "status": "success"
+                }
             )
 
-            state["terraform"] = result
+            validate_state(state)
 
-        elif step == "create_pull_request":
+            save_state(state)
 
-            result = TOOLS[step]()
+            print(
+                "Checkpoint Saved"
+            )
 
-            state["pull_request"] = result
+        except Exception as e:
 
-        print(result)
+            print(
+                f"Step Failed: {step}"
+            )
 
-        state["execution_history"].append(
-            {
-                "step": step,
-                "status": "success"
-            }
-        )
+            state["errors"].append(
+                str(e)
+            )
 
-        validate_state(state)
+            state["execution_history"].append(
+                {
+                    "step": step,
+                    "status": "failed",
+                    "error": str(e)
+                }
+            )
 
-        save_state(state)
+            state["workflow"]["status"] = (
+                "failed"
+            )
 
-        print(
-            "Checkpoint Saved"
-        )
+            save_state(state)
+
+            print(
+                "Failure Checkpoint Saved"
+            )
+
+            return state
 
     state["workflow"]["status"] = (
         "completed"
@@ -69,3 +102,30 @@ def execute_plan(steps):
     save_state(state)
 
     return state
+
+def get_remaining_steps(
+    original_steps,
+    execution_history
+):
+
+    completed_steps = []
+
+    for item in execution_history:
+
+        if item["status"] == "success":
+
+            completed_steps.append(
+                item["step"]
+            )
+
+    remaining_steps = []
+
+    for step in original_steps:
+
+        if step not in completed_steps:
+
+            remaining_steps.append(
+                step
+            )
+
+    return remaining_steps
